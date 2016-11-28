@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block title %}分配会议{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 align="center">分配会议</h1>
+
+        {% for client in client_list %}
+        <p>{{client.name}}<span><a href="{{client.get_absolute_url}}">分配会议</a><span></p>
+        <table class="table" style="background-color: #ECF0F1; width: 400px" align="center">
+            <thead>
+                <th>年月</th><th>产品</th><th>活动名称</th><th>AZ活动负责人</th><th>参会人数上限</th><th>审核</th>
+            </thead>
+            <tbody>
+                {% for meeting in client.plan.all %}
+                <tr>
+                    <th>{{meeting.year}}年{{meeting.month}}月</th>
+                    <th>{{meeting.product}}</th>
+                    <th>{{meeting.name_of_meeting}}</th>
+                    <th>{{meeting.rmm_of_meeting}}</th>
+                    <th>{{meeting.number_of_participant}}</th>
+                    <th>
+                        {% if meeting.is_checked %}
+                            <span>已审核</span>
+                        {% else %}
+                            <span>未审核</span>
+                        {% endif %}
+                    </th>
+                <tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

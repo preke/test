@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block title %} 客户信息导入 {% endblock %}
+
+{% block body %}
+    <div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+        <form enctype="multipart/form-data" method="post">
+            <div class="row">
+                <div class="col-md-8">
+                    <input class="form-control" type="file" name="client_lead_in_extends">
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-default"> 提交 </button>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+{% endblock %}

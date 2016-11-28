@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'jquery-2.2.0.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 align="center">用户类型统计</h1>
+        <br>
+        <br>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th>姓名</th>
+                    <th>主席次数</th>
+                </thead>
+                <tbody>
+                    {% for key,value in zx.items %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th>姓名</th>
+                    <th>讲者次数</th>
+                </thead>
+                <tbody>
+                    {% for key,value in jz.items %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</body>
+</html>
