@@ -19,7 +19,7 @@
 					window.location.href = data["url"];
 				}
 				else {
-					$("#hint").show().text("学号或密码错误");
+					$("#hint").show().text("用户名或密码错误");
 				}
 			}
 		});

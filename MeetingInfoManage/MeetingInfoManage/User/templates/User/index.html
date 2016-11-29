@@ -5,40 +5,55 @@
 {% block title %} 首页 {% endblock %}
 
 {% block body %}
-
-
-    <div style="background-color: #EDF2F1; height: 800px; width: 2500px" class="container">
+    <div style="height: 800px; width: 2500px;" class="container" >
         <br>
         <br>
-        <div class="row" style="width: 1600px;" align="center">
-            <div class="col-md-2" >
+
+        <div style="">
+            <div style="float: left; margin-left: 20px; ">
+                <h4>
+                    操作:
+                </h4>
+            </div>
+            <div style="float: left; margin-left: 20px; ">
                     <h4>
-                       <a href="{% url 'rsm' %}">RSM 统计</a>
+                       <a href="{% url 'rsm' %}" style="text-decoration:none;">RSM 统计</a>
                     </h4>
             </div>
-             <div class="col-md-2">
+            <div style="float: left; margin-left: 20px">
+                <h4 style="font-weight: 400">|</h4>
+            </div>
+            <div style="float: left; margin-left: 20px">
                     <h4>
-                       <a href="{% url 'stat' %}">用户参会需求统计</a>
+                       <a href="{% url 'stat' %}" style="text-decoration:none;">用户参会需求统计</a>
                     </h4>
+            </div>
+            <div style="float: left; margin-left: 20px">
+                <h4 style="font-weight: 400">|</h4>
             </div>
             {% if request.session.RSM %}
-            <div class="col-md-2">
+            <div style="float: left; margin-left: 20px">
                             <h4>
-                                <a href="{% url 'client_lead_in_extends' %}">客户信息excel导入</a>
+                                <a href="{% url 'client_lead_in_extends' %}" style="text-decoration:none;">客户信息导入</a>
                             </h4>
             </div>
+            <div style="float: left; margin-left: 20px">
+                <h4 style="font-weight: 400">|</h4>
+            </div>
             {% endif %}
-            <div class="col-md-2">
+            <div style="float: left; margin-left: 20px">
                  <h4>
                      {% load staticfiles %}
-                     <a href="{% url 'client_lead_out' %}">客户信息导出</a>
+                     <a href="{% url 'client_lead_out' %}" style="text-decoration:none;">客户信息导出</a>
                  </h4>
             </div>
+            <br>
         </div>
 
         <br>
-        <table class="table table-striped table-bordered">
-            <thead>
+        <hr style="height:1px;border:none;border-top:1px solid #555555;" />
+        <table class="table table-bordered table-hover">
+            <thead style="background-color: #EDF2F1">
                 <th>姓名</th>
                 <th>性别</th>
                 <th>出生年月</th>
@@ -95,18 +110,30 @@
                 {% endfor %}
             </tbody>
         </table>
-
-
-        <hr/>
-        <br>
-        <br>
-        <div class="container" align="center">
-            当前页:{{page_client_list.number}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="?page=1"> 首页 </a> &nbsp;&nbsp;
-            {% if page_client_list.has_previous %} <a href="?page={{page_client_list.prevoius_page_number}}" > 上一页 </a> &nbsp;&nbsp; {% endif %}
-            {% if page_client_list.has_next %} <a href="?page={{page_client_list.next_page_number}}" > 下一页 </a> &nbsp;&nbsp; {% endif %}
-            <a href="?page={{paginator.num_pages}}"> 末页 </a>
+        <div style="margin-left: 20px">
+                        <font style="font-size: 20px; vertical-align: bottom; font-weight: 200">
+                            当前页:&nbsp;&nbsp;&nbsp;&nbsp;{{page_client_list.number}}
+                        </font>
+                        <button style="margin-left: 20px" class="btn btn-default">
+                            <a href="?page=1" style="text-decoration:none; color: #0f0f0f" class="btn-link"> 首页 </a>
+                        </button>
+                        {% if page_client_list.has_previous %}
+                            <button style="" class="btn btn-default">
+                                <a href="?page={{page_client_list.prevoius_page_number}}" style="text-decoration:none; color: #0f0f0f" class="btn-link"> 上一页 </a>
+                            </button>
+                        {% endif %}
+                        {% if page_client_list.has_next %}
+                            <button style="" class="btn btn-default">
+                                <a href="?page={{page_client_list.next_page_number}}" style="text-decoration:none; color: #0f0f0f" class="btn-link"> 下一页 </a>
+                            </button>
+                        {% endif %}
+                        <button style="" class="btn btn-default">
+                            <a href="?page={{paginator.num_pages}}" style="text-decoration:none; color: #0f0f0f" class="btn-link"> 末页 </a>
+                        </button>
         </div>
+        <br>
+
+
     </div>
     <br>
     <br>

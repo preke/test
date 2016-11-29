@@ -5,21 +5,21 @@
 
 {% block body %}
     <div class="container">
+        <br>
         <h2 style="font-weight: 200">客户潜力权重: {{client.potential_weight}}</h2>
         <br>
-        <br>
-        <br>
         <h3 style="font-weight: 200">可分配的会议:</h3>
-        <div class="row">
-            <div class="col-md-6">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <th>主题</th>
-                        <th>产品</th>
-                        <th>年</th>
-                        <th>月</th>
-                        <th>日</th>
-                        <th>参会需求</th>
+                <table class="table table-bordered table-hover" style="width: 800px">
+                    <thead style="background-color: #F2F9FC;">
+{#                       <div class="row" style="width: 800px">#}
+                        <th col-sm-2>主题</th>
+                        <th col-sm-2>产品</th>
+                        <th col-sm-1>年</th>
+                        <th col-sm-1>月</th>
+                        <th col-sm-1>日</th>
+                        <th col-sm-1>参会需求</th>
+
+{#                       </div>#}
                     </thead>
                     <tbody>
                         {% for meeting in meeting_list %}
@@ -35,9 +35,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </div>
-            <div class="col-md-6"></div>
-        </div>
+                <br>
                 <h2>方案:</h2>
                 <form action="#" method="post">
                     {% csrf_token %}
@@ -45,8 +43,8 @@
                         <hr style="height:1px;border:none;border-top:1px solid #555555;" />
                         <div class="row">
                             <div class="col-md-9">
-                                <table class="table table-bordered table-striped">
-                            <thead>
+                                <table class="table table-bordered table-hover">
+                            <thead style="background-color: #F2F9FC;">
                                 <th>主题</th>
                                 <th>产品</th>
                                 <th>年</th>
@@ -69,8 +67,7 @@
                         </table>
                             </div>
                             <div class="col-md-3">
-                                <br>
-                                <button class="btn btn-default" name="way_index", value="{{forloop.counter0 }}"> 确定 </button>
+                                <button class="btn btn-default" name="way_index" style="margin-top: 0px" value="{{forloop.counter0 }}"> 确定 </button>
                             </div>
                         </div>
                 {% endfor %}

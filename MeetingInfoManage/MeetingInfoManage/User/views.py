@@ -95,14 +95,14 @@ def lead_in_extends(request):
         return render(request, 'User/client_lead_in_extends.html')
     else :
         # try:
-        print '======================open file'
+        # print '======================open file'
         file = request.FILES['client_lead_in_extends']
         reader = csv.reader(file)
-        print '-------------------------read file'
-        print reader.next() # cut down he head
+        # print '-------------------------read file'
+        # print reader.next() # cut down he head
         record = reader.next()
         while True:
-            print record
+            # print record
             # 去掉前导和后缀空格
             record = [each.strip() for each in record]
             record = [cell.decode('gb2312').encode('utf-8') for cell in record]
@@ -274,19 +274,19 @@ def find_way_for_speecher(index, meetings, potential_weight, way, all_ways):
         # 有可能way已经在all_ways里面了, 比如, po = 5, [1, 2, 4] => [1, 2], and [1, 2, 3] => [1, 2]
         if len(way) > 0 and (not way in all_ways):
             all_ways.append(list(way))
-        print all_ways
+        # print all_ways
         return all_ways
     if index >= len(meetings):
-        print index, len(meetings), '------------------------------'
+        # print index, len(meetings), '------------------------------'
         if len(way) > 0 and (not way in all_ways):
             all_ways.append(list(way))
-        print all_ways
+        # print all_ways
         return all_ways
     way.append(meetings[index])
     all_ways = find_way_for_speecher(index + 1, meetings, potential_weight - meetings[index].weight_of_speecher, list(way), all_ways)
     way.pop()
     wall_ways = find_way_for_speecher(index + 1, meetings, potential_weight, list(way), all_ways)
-    print all_ways
+    # print all_ways
     return all_ways
 
 def find_way_for_participant(index, meetings, potential_weight, way, all_ways):
@@ -441,7 +441,7 @@ def rsm(request):
     for rsm in rsms:
         l = 0
         y = 0
-        print len(rsm.client_set.all())
+        # print len(rsm.client_set.all())
         for user in rsm.client_set.all():
             if user.type == u'院长':
                 y += 1
