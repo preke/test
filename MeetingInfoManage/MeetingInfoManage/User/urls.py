@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^stat$', 'User.views.users_stat', name = 'stat'),
     url(r'^choose_meeting\_(?P<client_id>[0-9]+)$', 'User.views.choose_meeting', name='choose_meeting'),
     url(r'^change_password$', 'User.views.change_password', name="change_password"),
+    url(r'^delete\_(?P<client_id>[0-9]+)$', 'User.views.delete', name="delete"),
+    url(r'^change_info\_(?P<client_id>[0-9]+)$', 'User.views.change_info', name="change_info"),
 ]

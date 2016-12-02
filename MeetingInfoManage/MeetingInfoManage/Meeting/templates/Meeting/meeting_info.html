@@ -4,7 +4,7 @@
 {% block title %} 会议信息 {% endblock title %}
 
 {% block body %}
-<div style="margin-left: 20px; width: 1600px">
+<div style="margin-left: 20px; width: 1800px">
     <br>
     <br>
     <div class="row">
@@ -40,7 +40,7 @@
             <th>日</th>
             <!-- <th>活动编号</th> -->
             <!-- <th>活动主题</th> -->
-            <td>活动城市</td>
+            <th>活动城市</th>
             <th>会议类型</th>
             <th>参会规模</th>
             <th>AZ覆盖邀请人数</th>
@@ -53,6 +53,9 @@
             <th>参会统计</th>
             <th>覆盖情况</th>
             <th>编辑</th>
+            {% if request.session.RMM %}
+                <th>删除</th>
+            {% endif %}
         </thead>
         <tbody>
             {% for meeting in page_meeting_list.object_list %}
@@ -100,8 +103,10 @@
                 <td><a href="{% url 'fugai' meeting.id %}">覆盖情况</a></td>
                 {% if meeting.is_checked or meeting.is_end_up %}
                     <td>(已审核)不可编辑</td>
+                    <td>(已审核)不可删除</td>
                 {% else %}
                     <td><a href="{% url 'edit' meeting.id %}">编辑</a></td>
+                    <td><a href="{% url 'delete_meeting' meeting.id %}">删除</a></td>
                 {% endif %}
             </tr>
             {% endfor %}

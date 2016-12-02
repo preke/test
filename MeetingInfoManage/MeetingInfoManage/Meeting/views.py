@@ -349,3 +349,12 @@ def edit(request, id):
             return HttpResponse('error')
     else:
         return HttpResponse('error')
+
+
+def delete_meeting(request, id):
+    meeting = Meeting.objects.get(id=id)
+    try:
+        meeting.delete()
+        return HttpResponseRedirect(reverse('index'))
+    except:
+        return HttpResponse('error')

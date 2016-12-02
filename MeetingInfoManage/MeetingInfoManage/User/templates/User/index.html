@@ -78,6 +78,10 @@
                 <th>计划主席次数</th>
                 <th>讲者统计</th>
                 <th>计划讲者统计</th>
+                {% if request.session.RSM %}
+                    <th>修改</th>
+                    <th>删除</th>
+                {% endif %}
             </thead>
             <tbody>
                 {% for client in page_client_list.object_list %}
@@ -106,6 +110,10 @@
                     <td>{{client.chairman_times_plan}}</td>
                     <td>{{client.speecher_times}}</td>
                     <td>{{client.speecher_times_plan}}</td>
+                    {% if request.session.RSM %}
+                        <td><a href="{% url 'change_info' client.id %}">修改</a></td>
+                        <td><a href="{% url 'delete' client.id %}">删除</a></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>

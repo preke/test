@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^meeting_check/(?P<meeting_id>[0-9]+)/$', 'Meeting.views.check', name='check'),
     url(r'^meeting_fugai/(?P<id>[0-9]+)/$', 'Meeting.views.fugai', name='fugai'),
     url(r'^meeting_edit/(?P<id>[0-9]+)/$', 'Meeting.views.edit', name='edit'),
+    url(r'^meeting_delete/(?P<id>[0-9]+)/$', 'Meeting.views.delete_meeting', name='delete_meeting'),
 ]

@@ -251,6 +251,56 @@ def login(request):
         except:
             return JsonResponse({'state': False, 'url': reverse('login')})
 
+
+def delete(request, client_id):
+    try:
+        user = Client.objects.get(id=client_id)
+        user.delete()
+        # user.save()
+        return HttpResponseRedirect(reverse('index'))
+    except:
+        return HttpResponse('error')
+
+
+def change_info(request, client_id):
+    client = Client.objects.get(id=client_id)
+    if request.method == 'GET':
+        info = {'client':client}
+        return render(request, 'User/edit.html', info)
+    elif request.method == 'POST':
+        client.name = request.POST['name']
+        client.sex = request.POST['gender']
+        client.birth = request.POST['birth']
+        client.job = request.POST['job']
+        client.office = request.POST['office']
+        client.major = request.POST['major']
+        client.title = request.POST['title']
+        client.unit = request.POST['unit']
+        client.phone = request.POST['phone']
+        client.email = request.POST['email']
+        client.institute_job = request.POST['institute_job']
+        client.strong_point = request.POST['string_point']
+        client.speaker_rate = request.POST['jibie']  # 讲者级别
+        client.purpose = request.POST['aim']  # 参与活动目的
+        client.demand = request.POST['needs']  # 参会需求
+
+        rsm = RSM.objects.filter(user_name=request.POST['manager'])
+        if len(rsm) > 0:
+            rsm = rsm[0]
+        else:
+            rsm = None
+        if rsm:
+            client.region_manager = rsm
+        client.district_manager = request.POST['d_manager']  # 负责地区经理
+        client.represent = request.POST['repre']  # 负责代表
+        client.type = request.POST['type']  # 类型
+        client.potential_weight = request.POST['potential_weight']
+
+        client.save()
+        return HttpResponseRedirect(reverse('index'))
+
+
+
 def logout(request):
     del request.session['user_name']
     if request.session.get('RSM', False) :
