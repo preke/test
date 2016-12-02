@@ -100,6 +100,7 @@ def lead_in_extends(request):
         reader = csv.reader(file)
         # print '-------------------------read file'
         # print reader.next() # cut down he head
+        reader.next()
         record = reader.next()
         while True:
             # print record
