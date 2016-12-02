@@ -103,7 +103,7 @@
                 <td><a href="{% url 'fugai' meeting.id %}">覆盖情况</a></td>
                 {% if meeting.is_checked or meeting.is_end_up %}
                     <td>(已审核)不可编辑</td>
-                    <td>(已审核)不可删除</td>
+                    <td><a href="{% url 'delete_meeting' meeting.id %}">删除</a></td>
                 {% else %}
                     <td><a href="{% url 'edit' meeting.id %}">编辑</a></td>
                     <td><a href="{% url 'delete_meeting' meeting.id %}">删除</a></td>
