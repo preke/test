@@ -387,9 +387,15 @@ def find_way_for_chairman(index, meetings, potential_weight, way, all_ways):
 
 def choose_meeting(request, client_id):
     client = Client.objects.filter(id = client_id)[0];
-    meetings = Meeting.objects.filter(is_end_up = False).filter(is_checked = False).order_by('year', 'month', 'day')
+    length = len(client.office)
+    office_type = client.office[: length - 1]
+    print office_type
+
+    meetings = Meeting.objects.filter(is_end_up = False).filter(is_checked = False , target_client__contains = office_type).order_by('year', 'month', 'day')
     meeting_list = []
     # demand = client.demand
+
+    
     if client.demand == u'主席':
         for each in meetings:
             if each.weight_of_chairman <= client.potential_weight:
@@ -428,7 +434,7 @@ def choose_meeting(request, client_id):
     all_ways.sort(key = lambda x : sum_of_weight(x, client.demand), reverse = True)
     info = {'client': client, 'meeting_list': meeting_list, 'all_ways': all_ways}
     if request.method == 'GET' :
-        return render(request, 'User/choose_meeting.html', info)
+        return render(request, 'Useroose_meeting.html', info)
     else: # POST
         # return HttpResponse('kk')
         way_index = int(request.POST.get('way_index', 0))
