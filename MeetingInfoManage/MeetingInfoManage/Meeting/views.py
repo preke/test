@@ -87,7 +87,33 @@ def lead_in_extends(request):
         record = reader.next()
         while True :
             record = [each.strip() for each in record]
-            print len(record)
+            record = [cell.decode('gb2312').encode('utf-8') for cell in record]
+            # 增加数字字段的容错性
+            try:
+                record[8] = int(record[8])
+            except:
+                record[8] = 0
+
+            try:
+                record[9] = int(record[9])
+            except:
+                record[9] = 0
+
+            try:
+                record[15] = int(record[15])
+            except:
+                record[15] = 0
+
+            try:
+                record[24] = int(record[24])
+            except:
+                record[24] = 0
+
+            try:
+                record[25] = int(record[25])
+            except:
+                record[25] = 0
+
             meeting, not_exist = Meeting.objects.get_or_create( product = record[0],
                                                                 name_of_meeting = record[1],
                                                                 rmm_of_meeting = record[2],
@@ -96,12 +122,12 @@ def lead_in_extends(request):
                                                                 day = record[5],
                                                                 city = record[6],
                                                                 type_of_meeting = record[7],
-                                                                number_of_participant = record[8],
-                                                                number_of_participant_invited = record[9],
+                                                                number_of_participant = int(record[8]),
+                                                                number_of_participant_invited = int(record[9]),
                                                                 target_client = record[10],
-                                                                weight_of_chairman = record[15],
-                                                                weight_of_speecher = record[24],
-                                                                weight_of_participant = record[25])
+                                                                weight_of_chairman =int(record[15]),
+                                                                weight_of_speecher = int(record[24]),
+                                                                weight_of_participant = int(record[25]))
             if not_exist :
                 meeting.rmm_of_meeting = request.session['user_name']
                 meeting.save()
@@ -123,15 +149,18 @@ def unicode_2_gb2312(cell):
 def lead_out(request):
     if not (request.session.get('user_name', False) and (request.session.get('RMM', False) or request.session.get('Boss', False))):
         return HttpResponseRedirect(reverse('login'))
+    
     if request.session.get('Boss', False):
         meeting_list = Meeting.objects.all()
     else:
         meeting_list = Meeting.objects.filter(rmm_of_meeting = request.session['user_name'])
+
     relative_path = 'media/storage/meeting.csv'
-    csvfile = open(os.path.join(BASE_DIR, relative_path), 'w')
+    csvfile = open(os.path.join(BASE_DIR, relative_path), 'wb')
     writer = csv.writer(csvfile)
     strs = ['产品',
             '活动名称',
+            '活动负责人',
             '年',
             '月',
             '日',
@@ -162,6 +191,7 @@ def lead_out(request):
         speecher_list = meeting.client_attend_set.filter(demand = '讲者')
         record = [meeting.product,
                   meeting.name_of_meeting,
+                  meeting.rmm_of_meeting,
                   meeting.year,
                   meeting.month,
                   meeting.day,
@@ -185,13 +215,14 @@ def lead_out(request):
                   '',
                   meeting.weight_of_speecher,
                   meeting.weight_of_participant]
-        ii = 10;
+        ii = 10
         for each in chairman_list:
             if ii >= 14 :
                 break
             else :
                 record[ii] = each.name
                 ii += 1
+
         ii = 15
         for each in speecher_list:
             if ii >= 23:
@@ -199,7 +230,7 @@ def lead_out(request):
             else:
                 record[ii] = each.name
                 ii += 1
-
+    
         record = [unicode_2_gb2312(cell) for cell in record]
         writer.writerow(record)
 
