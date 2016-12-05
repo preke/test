@@ -434,7 +434,7 @@ def choose_meeting(request, client_id):
     all_ways.sort(key = lambda x : sum_of_weight(x, client.demand), reverse = True)
     info = {'client': client, 'meeting_list': meeting_list, 'all_ways': all_ways}
     if request.method == 'GET' :
-        return render(request, 'Useroose_meeting.html', info)
+        return render(request, 'User/choose_meeting.html', info)
     else: # POST
         # return HttpResponse('kk')
         way_index = int(request.POST.get('way_index', 0))
