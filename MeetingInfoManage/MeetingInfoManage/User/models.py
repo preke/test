@@ -37,8 +37,8 @@ class RMM(models.Model):
         return self.user_name
 
     class Meta:
-        verbose_name = '地区经理'
-        verbose_name_plural = '地区经理'
+        verbose_name = '区域市场经理'
+        verbose_name_plural = '区域市场经理'
 
 
 
@@ -103,7 +103,7 @@ class Boss(models.Model):
         return self.user_name
 
     class Meta:
-        verbose_name = '老板'
-        verbose_name_plural= '老板'
+        verbose_name = '管理员'
+        verbose_name_plural= '管理员'
 
 
