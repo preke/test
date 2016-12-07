@@ -4,6 +4,7 @@ from User.models import *
 from User.views import *
 from Meeting.models import *
 import csv
+import hashlib
 
 # Register your models here.
 
@@ -95,14 +96,39 @@ class ClientAdmin(admin.ModelAdmin):
 
 
 class RSMAdmin(admin.ModelAdmin):
-    pass
+    def save_model(self, request, obj, form, change):
+        str = request.POST['password']
+        if len(str) == 32:
+            pass
+        else:
+            p = hashlib.md5()
+            p.update(str)
+            obj.password = p.hexdigest()
+        obj.save()
+
 
 class RMMAdmin(admin.ModelAdmin):
-    pass
+    def save_model(self, request, obj, form, change):
+        str = request.POST['password']
+        if len(str) == 32:
+            pass
+        else:
+            p = hashlib.md5()
+            p.update(str)
+            obj.password = p.hexdigest()
+        obj.save()
 
 
 class BossAdmin(admin.ModelAdmin):
-    pass
+    def save_model(self, request, obj, form, change):
+        str = request.POST['password']
+        if len(str) == 32:
+            pass
+        else:
+            p = hashlib.md5()
+            p.update(str)
+            obj.password = p.hexdigest()
+        obj.save()
 
 admin.site.register(Client, ClientAdmin)
 
